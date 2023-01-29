@@ -82,7 +82,7 @@ String index_html = R"====(<!DOCTYPE html>
       <h3>Brightness</h3>
       <output id="rangevalue">50</output><br>
       <input type="range" value="50" min="0" max="255" id="rangeLvl" oninput="rangevalue.value=value">
-     
+      
       <h3>Color</h3>
       <input type="color"  id="colorHTML" name="colorHTML" value="#ff0000" > </br>
       

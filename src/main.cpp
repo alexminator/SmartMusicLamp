@@ -39,13 +39,15 @@ IPAddress subnet(255, 255, 255, 0);
 #endif
 
 #include <Adafruit_NeoPixel.h>
-#include <EEPROM.h>
+
+/*#include <EEPROM.h>
 // Eeprom Address
 int AddrBright = 0;
 int AddrColorR = 10;
 int AddrColorG = 20;
 int AddrColorB = 30;
 //int AddrIDeffect = 40;
+*/
 
 #ifdef __AVR__
 #include <avr/power.h>
@@ -54,7 +56,7 @@ int AddrColorB = 30;
 #include "data.h"
 
 #define WIFI_SSID "Connectify-me"
-#define WIFI_PASSWORD "xxxxx"
+#define WIFI_PASSWORD "asd369/*"
 
 #define StripPin 4
 #define stripNumOfLeds 24
@@ -64,10 +66,10 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(stripNumOfLeds, StripPin, NEO_GRB + 
 boolean ButtonState = true;
 boolean Rainbow = false;
 
-int ledBrightness;
-int Red;
-int Green;
-int Blue;
+int ledBrightness = 50;
+int Red = 255;
+int Green = 0;
+int Blue = 0;
 
 long HueNow = 0;
 String Valor = "";
@@ -172,8 +174,8 @@ void StripBrightness()
   {
     Valor = server.arg("valor");
     ledBrightness = atoi(Valor.c_str());
-    EEPROM.put(AddrBright, ledBrightness);
-    EEPROM.commit();
+    // EEPROM.put(AddrBright, ledBrightness);
+    // EEPROM.commit();
     strip.setBrightness(ledBrightness);
     Serial << "Cambiando el brillo a " << ledBrightness << "\n";
   }
@@ -188,24 +190,24 @@ void StripColor()
   {
     Valor = server.arg("r");
     Red = atoi(Valor.c_str());
-    EEPROM.put(AddrColorR, Red);
-    EEPROM.commit();
+    //EEPROM.put(AddrColorR, Red);
+    //EEPROM.commit();
     Serial << "Rojo " << Red << "\n";
   }
   if (server.hasArg("g"))
   {
     Valor = server.arg("g");
     Green = atoi(Valor.c_str());
-    EEPROM.put(AddrColorG, Green);
-    EEPROM.commit();
+    //EEPROM.put(AddrColorG, Green);
+    //EEPROM.commit();
     Serial << "Verde " << Green << "\n";
   }
   if (server.hasArg("b"))
   {
     Valor = server.arg("b");
     Blue = atoi(Valor.c_str());
-    EEPROM.put(AddrColorB, Blue);
-    EEPROM.commit();
+    //EEPROM.put(AddrColorB, Blue);
+    //EEPROM.commit();
     Serial << "Azul " << Blue << "\n";
   }
 
@@ -237,15 +239,20 @@ void setup()
 {
   Serial.begin(115200);
   delay(500);
-  EEPROM.begin(EEPROM_SIZE);
-  Serial.println("EEPROM Configurada");
+  // EEPROM.begin(EEPROM_SIZE);
+  // Serial.println("EEPROM Configurada");
 
   // Get value from EEPROM
-  EEPROM.get(AddrBright, ledBrightness); // Get strip bright value 
+  /*EEPROM.get(AddrBright, ledBrightness); // Get strip bright value
   EEPROM.get(AddrColorR, Red); // Get value RED
   EEPROM.get(AddrColorG, Green); // Get value Green
   EEPROM.get(AddrColorB, Blue); // Get value Blue
   //EEPROM.get(AddrIDeffect, ID);
+  Serial.println(ledBrightness);
+  Serial.println(Red);
+  Serial.println(Green);
+  Serial.println(Blue);
+  */
 
   Serial.println("Wifi setup");
   wifi_setup();
@@ -280,13 +287,6 @@ void loop()
 {
   server.handleClient();
   unsigned long now = millis();
-
-Serial.println(ledBrightness);
-Serial.println(Red);
-Serial.println(Green);
-Serial.println(Blue);
-
-
 
 #if defined(ESP8266)
   MDNS.update();
