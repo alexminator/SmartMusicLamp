@@ -51,12 +51,10 @@ int AddrColorB = 30;
 #include <avr/power.h>
 #endif
 
-// extern const char index_html[];
-
 #include "data.h"
 
 #define WIFI_SSID "Connectify-me"
-#define WIFI_PASSWORD "asd369/*"
+#define WIFI_PASSWORD "xxxxx"
 
 #define StripPin 4
 #define stripNumOfLeds 24
