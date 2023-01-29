@@ -1,4 +1,3 @@
-//const
 
 String index_html = R"====(<!DOCTYPE html>
 <html>
